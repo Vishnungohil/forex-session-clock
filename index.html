@@ -1,106 +1,470 @@
-<!doctype html>
-<html amp lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Live Forex Session Clock (IST) – AMP</title>
+  <meta charset="UTF-8" />
+  <title>Live Forex Session Clock (IST)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- CHANGE THIS to your Blogger LIVE page URL -->
-  <link rel="canonical" href="https://YOUR-LIVE-PAGE-URL-HERE" />
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --card-bg: #ffffff;
+      --text-main: #101828;
+      --text-sub: #667085;
+      --accent: #22c55e;
+      --danger: #ef4444;
+      --border-soft: #e4e7ec;
+      --shadow-soft: 0 18px 30px rgba(15, 23, 42, 0.14);
+    }
 
-  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-  <script async src="https://cdn.ampproject.org/v0.js"></script>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <style amp-boilerplate>
-    body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
-         -moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
-         -ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
-         animation:-amp-start 8s steps(1,end) 0s 1 normal both}
-    @keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}
-  </style>
-  <noscript>
-    <style amp-boilerplate>
-      body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}
-    </style>
-  </noscript>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #e0f2fe, #eef2ff, #f4f4ff);
+      color: var(--text-main);
+      padding: 16px;
+    }
 
-  <style amp-custom>
-    body{
-      font-family:Arial, Helvetica, sans-serif;
-      background:#f3f4f6;
-      margin:0;
-      padding:0;
-      color:#111827;
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
     }
-    .container{
-      max-width:900px;
-      margin:18px auto;
-      background:#fff;
-      padding:14px;
-      border-radius:12px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.1);
-    }
-    h1{text-align:center;font-size:1.5rem;margin:10px 0;}
-    .sub{text-align:center;margin-bottom:10px;color:#6b7280;}
-    .sessions{display:grid;gap:12px;}
-    @media(min-width:700px){.sessions{grid-template-columns:1fr 1fr;}}
-    .card{padding:12px;border-radius:10px;background:#f9fafb;border:1px solid #e5e7eb;text-align:center;}
-    .name{font-size:1rem;font-weight:700;margin-bottom:4px;}
-    .session-time{margin-top:6px;font-size:0.9rem;color:#374151;}
-    .city{font-size:0.8rem;margin-bottom:8px;color:#6b7280;}
-    .note{text-align:center;margin-top:15px;color:#6b7280;font-size:0.85rem;}
 
-    /* static analog clock */
-    .clock-icon{
-      width:65px;height:65px;border-radius:50%;border:2px solid #22c55e;
-      margin:0 auto 8px;position:relative;
-      background:radial-gradient(circle at 30% 30%,#0f172a,#020617);
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 0.01em;
     }
-    .clock-center{
-      width:6px;height:6px;border-radius:50%;background:#22c55e;
-      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+
+    .sub {
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
     }
-    .clock-hand-hour,.clock-hand-min{
-      position:absolute;left:50%;bottom:50%;transform-origin:50% 100%;border-radius:999px;
+
+    .ist-time-box {
+      background: #020617;
+      color: #e5f4ff;
+      border-radius: 999px;
+      padding: 8px 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 14px 25px rgba(15, 23, 42, 0.4);
+      margin: 0 auto 18px;
+      font-size: 0.9rem;
     }
-    .clock-hand-hour{width:4px;height:18px;background:#22c55e;transform:translateX(-50%) rotate(-45deg);}
-    .clock-hand-min{width:2px;height:24px;background:#e5e7eb;transform:translateX(-50%) rotate(60deg);}
+
+    .ist-label {
+      text-transform: uppercase;
+      opacity: 0.8;
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.25);
+    }
+
+    .sessions-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 720px) {
+      .sessions-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card.open {
+      border-color: rgba(34, 197, 94, 0.7);
+      box-shadow: 0 20px 35px rgba(22, 163, 74, 0.25);
+    }
+
+    .card.closed {
+      border-color: rgba(148, 163, 184, 0.7);
+      opacity: 0.92;
+    }
+
+    .session-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .session-city {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      text-align: center;
+    }
+
+    .session-time {
+      margin-top: 4px;
+      font-size: 0.88rem;
+      color: #0f172a;
+      text-align: center;
+    }
+
+    .status-pill {
+      margin-top: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 4px 9px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status-pill.open {
+      background: rgba(22, 163, 74, 0.1);
+      color: #16a34a;
+    }
+
+    .status-pill.closed {
+      background: rgba(148, 163, 184, 0.18);
+      color: #64748b;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+    }
+
+    .status-pill.open .status-dot {
+      background: #16a34a;
+    }
+
+    .status-pill.closed .status-dot {
+      background: #64748b;
+    }
+
+    /* ROUND CLOCK – WHITE WITH BLACK BORDER */
+
+    .clock-wrapper {
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .clock {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #f9fafb, #ffffff);
+      border: 3px solid #111827; /* black border */
+      position: relative;
+      box-shadow: 0 12px 20px rgba(15, 23, 42, 0.25);
+    }
+
+    /* small ticks at 12/3/6/9 */
+    .clock::before,
+    .clock::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      border-radius: 50%;
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+    }
+
+    .hand {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform-origin: 50% 100%;
+      transform: translate(-50%, -100%) rotate(0deg);
+      border-radius: 999px;
+    }
+
+    .hand.hour {
+      width: 4px;
+      height: 24px;
+      background: #111827; /* black */
+    }
+
+    .hand.min {
+      width: 3px;
+      height: 32px;
+      background: #111827; /* black */
+    }
+
+    .hand.sec {
+      width: 2px;
+      height: 35px;
+      background: #ef4444; /* red second hand */
+    }
+
+    .clock-centre {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #111827;
+      border: 2px solid #ffffff;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.25);
+    }
+
+    /* digital time text under clock */
+    .clock-time {
+      font-size: 0.8rem;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
+      color: #111827;
+    }
+
+    .note {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      text-align: center;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="page">
     <h1>Live Forex Session Clock (IST)</h1>
-    <div class="sub">AMP Static Version — Based on Indian Standard Time (IST)</div>
+    <p class="sub">
+      Real-time open / close status of major FX sessions based on Indian
+      Standard Time (IST).
+    </p>
 
-    <div class="sessions">
-      <section class="card">
-        <div class="clock-icon"><div class="clock-hand-hour"></div><div class="clock-hand-min"></div><div class="clock-center"></div></div>
-        <div class="name">Sydney Session</div><div class="city">Australia</div>
+    <div class="ist-time-box">
+      <div class="dot"></div>
+      <div>
+        <div class="ist-label">IST Time &amp; Day</div>
+        <div id="istClockText">-- : -- : --</div>
+      </div>
+    </div>
+
+    <div class="sessions-grid">
+      <!-- Sydney -->
+      <div class="card" id="card-sydney">
+        <div class="clock-wrapper">
+          <div class="clock">
+            <div class="hand hour"></div>
+            <div class="hand min"></div>
+            <div class="hand sec"></div>
+            <div class="clock-centre"></div>
+          </div>
+          <div class="clock-time">--:--:--</div>
+        </div>
+        <div class="session-title">Sydney Session</div>
+        <div class="session-city">Australia</div>
         <div class="session-time">3:30 AM – 12:30 PM IST</div>
-      </section>
+        <div class="status-pill" id="status-sydney">
+          <span class="status-dot"></span>
+          <span class="status-text">Loading…</span>
+        </div>
+      </div>
 
-      <section class="card">
-        <div class="clock-icon"><div class="clock-hand-hour"></div><div class="clock-hand-min"></div><div class="clock-center"></div></div>
-        <div class="name">Tokyo Session</div><div class="city">Japan</div>
+      <!-- Tokyo -->
+      <div class="card" id="card-tokyo">
+        <div class="clock-wrapper">
+          <div class="clock">
+            <div class="hand hour"></div>
+            <div class="hand min"></div>
+            <div class="hand sec"></div>
+            <div class="clock-centre"></div>
+          </div>
+          <div class="clock-time">--:--:--</div>
+        </div>
+        <div class="session-title">Tokyo Session</div>
+        <div class="session-city">Japan</div>
         <div class="session-time">5:30 AM – 2:30 PM IST</div>
-      </section>
+        <div class="status-pill" id="status-tokyo">
+          <span class="status-dot"></span>
+          <span class="status-text">Loading…</span>
+        </div>
+      </div>
 
-      <section class="card">
-        <div class="clock-icon"><div class="clock-hand-hour"></div><div class="clock-hand-min"></div><div class="clock-center"></div></div>
-        <div class="name">London Session</div><div class="city">United Kingdom</div>
+      <!-- London -->
+      <div class="card" id="card-london">
+        <div class="clock-wrapper">
+          <div class="clock">
+            <div class="hand hour"></div>
+            <div class="hand min"></div>
+            <div class="hand sec"></div>
+            <div class="clock-centre"></div>
+          </div>
+          <div class="clock-time">--:--:--</div>
+        </div>
+        <div class="session-title">London Session</div>
+        <div class="session-city">United Kingdom</div>
         <div class="session-time">1:30 PM – 10:30 PM IST</div>
-      </section>
+        <div class="status-pill" id="status-london">
+          <span class="status-dot"></span>
+          <span class="status-text">Loading…</span>
+        </div>
+      </div>
 
-      <section class="card">
-        <div class="clock-icon"><div class="clock-hand-hour"></div><div class="clock-hand-min"></div><div class="clock-center"></div></div>
-        <div class="name">New York Session</div><div class="city">United States</div>
-        <div class="session-time">6:30 PM – 3:30 AM IST</div>
-      </section>
+      <!-- New York -->
+      <div class="card" id="card-ny">
+        <div class="clock-wrapper">
+          <div class="clock">
+            <div class="hand hour"></div>
+            <div class="hand min"></div>
+            <div class="hand sec"></div>
+            <div class="clock-centre"></div>
+          </div>
+          <div class="clock-time">--:--:--</div>
+        </div>
+        <div class="session-title">New York Session</div>
+        <div class="session-city">United States</div>
+        <div class="session-time">6:30 PM – 3:30 AM IST (next day)</div>
+        <div class="status-pill" id="status-ny">
+          <span class="status-dot"></span>
+          <span class="status-text">Loading…</span>
+        </div>
+      </div>
     </div>
 
-    <div class="note">
-      This AMP page is static. For live animated clocks and auto open/close status,
-      visit the normal page:<br><b>https://riskriward.blogspot.com</b>
-    </div>
+    <p class="note">
+      Session hours are approximate retail forex hours in IST, Monday–Friday.
+      Weekends and major holidays may cause markets to be closed or thin.
+    </p>
   </div>
+
+  <script>
+    // Helper: convert hours/minutes to minutes since midnight
+    function hmToMinutes(h, m) {
+      return h * 60 + m;
+    }
+
+    // Define sessions in IST (local browser time assumed IST for you)
+    const sessions = [
+      {
+        id: "sydney",
+        startMin: hmToMinutes(3, 30),
+        endMin: hmToMinutes(12, 30),
+      },
+      {
+        id: "tokyo",
+        startMin: hmToMinutes(5, 30),
+        endMin: hmToMinutes(14, 30),
+      },
+      {
+        id: "london",
+        startMin: hmToMinutes(13, 30),
+        endMin: hmToMinutes(22, 30),
+      },
+      {
+        id: "ny",
+        startMin: hmToMinutes(18, 30),
+        endMin: hmToMinutes(3, 30), // wraps to next day
+      },
+    ];
+
+    function updateClock() {
+      const now = new Date();
+
+      // --- live analog clock hands (same time for all four icons) ---
+      const sec = now.getSeconds();
+      const min = now.getMinutes();
+      const hrs = now.getHours();
+
+      const secDeg = sec * 6;
+      const minDeg = min * 6 + sec * 0.1;
+      const hrsDeg = ((hrs % 12) + min / 60) * 30;
+
+      document.querySelectorAll(".clock").forEach((clock) => {
+        const hHand = clock.querySelector(".hand.hour");
+        const mHand = clock.querySelector(".hand.min");
+        const sHand = clock.querySelector(".hand.sec");
+
+        hHand.style.transform =
+          "translate(-50%, -100%) rotate(" + hrsDeg + "deg)";
+        mHand.style.transform =
+          "translate(-50%, -100%) rotate(" + minDeg + "deg)";
+        sHand.style.transform =
+          "translate(-50%, -100%) rotate(" + secDeg + "deg)";
+      });
+
+      // --- IST digital text ---
+      const optsTime = {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      };
+      const optsDay = { weekday: "short" };
+      const t = now.toLocaleTimeString("en-IN", optsTime);
+      const d = now.toLocaleDateString("en-IN", optsDay);
+      document.getElementById("istClockText").textContent = `${d} • ${t}`;
+
+      // digital time under each small clock
+      document.querySelectorAll(".clock-time").forEach((el) => {
+        el.textContent = t;
+      });
+
+      // --- session open/close based on IST ---
+      const minutesNow = hrs * 60 + min;
+
+      sessions.forEach((s) => {
+        let isOpen;
+        if (s.startMin < s.endMin) {
+          // same-day session
+          isOpen = minutesNow >= s.startMin && minutesNow < s.endMin;
+        } else {
+          // overnight session (e.g. New York)
+          isOpen = minutesNow >= s.startMin || minutesNow < s.endMin;
+        }
+
+        const pill = document.getElementById("status-" + s.id);
+        const card = document.getElementById("card-" + s.id);
+
+        if (!pill || !card) return;
+
+        pill.classList.toggle("open", isOpen);
+        pill.classList.toggle("closed", !isOpen);
+        card.classList.toggle("open", isOpen);
+        card.classList.toggle("closed", !isOpen);
+
+        const textEl = pill.querySelector(".status-text");
+        textEl.textContent = isOpen ? "Session Open" : "Session Closed";
+      });
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
 </body>
 </html>
