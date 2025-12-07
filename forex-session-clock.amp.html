@@ -1,0 +1,106 @@
+<!doctype html>
+<html amp lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Live Forex Session Clock (IST) – AMP</title>
+
+  <!-- CHANGE THIS to your Blogger LIVE page URL -->
+  <link rel="canonical" href="https://YOUR-LIVE-PAGE-URL-HERE" />
+
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+  <style amp-boilerplate>
+    body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
+         -moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
+         -ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
+         animation:-amp-start 8s steps(1,end) 0s 1 normal both}
+    @keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}
+  </style>
+  <noscript>
+    <style amp-boilerplate>
+      body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}
+    </style>
+  </noscript>
+
+  <style amp-custom>
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:#f3f4f6;
+      margin:0;
+      padding:0;
+      color:#111827;
+    }
+    .container{
+      max-width:900px;
+      margin:18px auto;
+      background:#fff;
+      padding:14px;
+      border-radius:12px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1{text-align:center;font-size:1.5rem;margin:10px 0;}
+    .sub{text-align:center;margin-bottom:10px;color:#6b7280;}
+    .sessions{display:grid;gap:12px;}
+    @media(min-width:700px){.sessions{grid-template-columns:1fr 1fr;}}
+    .card{padding:12px;border-radius:10px;background:#f9fafb;border:1px solid #e5e7eb;text-align:center;}
+    .name{font-size:1rem;font-weight:700;margin-bottom:4px;}
+    .session-time{margin-top:6px;font-size:0.9rem;color:#374151;}
+    .city{font-size:0.8rem;margin-bottom:8px;color:#6b7280;}
+    .note{text-align:center;margin-top:15px;color:#6b7280;font-size:0.85rem;}
+
+    /* static analog clock */
+    .clock-icon{
+      width:65px;height:65px;border-radius:50%;border:2px solid #22c55e;
+      margin:0 auto 8px;position:relative;
+      background:radial-gradient(circle at 30% 30%,#0f172a,#020617);
+    }
+    .clock-center{
+      width:6px;height:6px;border-radius:50%;background:#22c55e;
+      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    }
+    .clock-hand-hour,.clock-hand-min{
+      position:absolute;left:50%;bottom:50%;transform-origin:50% 100%;border-radius:999px;
+    }
+    .clock-hand-hour{width:4px;height:18px;background:#22c55e;transform:translateX(-50%) rotate(-45deg);}
+    .clock-hand-min{width:2px;height:24px;background:#e5e7eb;transform:translateX(-50%) rotate(60deg);}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Live Forex Session Clock (IST)</h1>
+    <div class="sub">AMP Static Version — Based on Indian Standard Time (IST)</div>
+
+    <div class="sessions">
+      <section class="card">
+        <div class="clock-icon"><div class="clock-hand-hour"></div><div class="clock-hand-min"></div><div class="clock-center"></div></div>
+        <div class="name">Sydney Session</div><div class="city">Australia</div>
+        <div class="session-time">3:30 AM – 12:30 PM IST</div>
+      </section>
+
+      <section class="card">
+        <div class="clock-icon"><div class="clock-hand-hour"></div><div class="clock-hand-min"></div><div class="clock-center"></div></div>
+        <div class="name">Tokyo Session</div><div class="city">Japan</div>
+        <div class="session-time">5:30 AM – 2:30 PM IST</div>
+      </section>
+
+      <section class="card">
+        <div class="clock-icon"><div class="clock-hand-hour"></div><div class="clock-hand-min"></div><div class="clock-center"></div></div>
+        <div class="name">London Session</div><div class="city">United Kingdom</div>
+        <div class="session-time">1:30 PM – 10:30 PM IST</div>
+      </section>
+
+      <section class="card">
+        <div class="clock-icon"><div class="clock-hand-hour"></div><div class="clock-hand-min"></div><div class="clock-center"></div></div>
+        <div class="name">New York Session</div><div class="city">United States</div>
+        <div class="session-time">6:30 PM – 3:30 AM IST</div>
+      </section>
+    </div>
+
+    <div class="note">
+      This AMP page is static. For live animated clocks and auto open/close status,
+      visit the normal page:<br><b>https://riskriward.blogspot.com</b>
+    </div>
+  </div>
+</body>
+</html>
