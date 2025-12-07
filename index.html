@@ -6,17 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
-    :root {
-      --bg: #f4f6fb;
-      --card-bg: #ffffff;
-      --text-main: #101828;
-      --text-sub: #667085;
-      --accent: #22c55e;
-      --danger: #ef4444;
-      --border-soft: #e4e7ec;
-      --shadow-soft: 0 18px 30px rgba(15, 23, 42, 0.14);
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -26,8 +15,8 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
-      background: radial-gradient(circle at top, #e0f2fe, #eef2ff, #f4f4ff);
-      color: var(--text-main);
+      background: #f3f4f6;
+      color: #111827;
       padding: 16px;
     }
 
@@ -40,43 +29,42 @@
       font-size: 1.9rem;
       font-weight: 800;
       text-align: center;
-      margin-bottom: 8px;
-      letter-spacing: 0.01em;
+      margin-bottom: 6px;
     }
 
     .sub {
       text-align: center;
-      color: var(--text-sub);
       font-size: 0.9rem;
-      margin-bottom: 18px;
+      color: #6b7280;
+      margin-bottom: 16px;
     }
 
-    .ist-time-box {
-      background: #020617;
-      color: #e5f4ff;
-      border-radius: 999px;
-      padding: 8px 18px;
+    .ist-box {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 14px 25px rgba(15, 23, 42, 0.4);
-      margin: 0 auto 18px;
-      font-size: 0.9rem;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: #111827;
+      color: #e5e7eb;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      font-size: 0.85rem;
+      margin: 0 auto 20px;
     }
 
     .ist-label {
       text-transform: uppercase;
-      opacity: 0.8;
       letter-spacing: 0.12em;
       font-size: 0.7rem;
+      opacity: 0.7;
     }
 
-    .dot {
-      width: 6px;
-      height: 6px;
+    .ist-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 999px;
       background: #22c55e;
-      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.25);
+      box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.3);
     }
 
     .sessions-grid {
@@ -85,51 +73,51 @@
       gap: 16px;
     }
 
-    @media (min-width: 720px) {
+    @media (min-width: 768px) {
       .sessions-grid {
         grid-template-columns: 1fr 1fr;
       }
     }
 
     .card {
-      background: var(--card-bg);
+      background: #ffffff;
       border-radius: 18px;
       padding: 16px;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid var(--border-soft);
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 16px 28px rgba(15, 23, 42, 0.16);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .card.open {
-      border-color: rgba(34, 197, 94, 0.7);
-      box-shadow: 0 20px 35px rgba(22, 163, 74, 0.25);
+      border-color: #22c55e;
+      box-shadow: 0 18px 32px rgba(22, 163, 74, 0.25);
     }
 
     .card.closed {
-      border-color: rgba(148, 163, 184, 0.7);
+      border-color: #cbd5e1;
       opacity: 0.92;
     }
 
     .session-title {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       text-align: center;
     }
 
     .session-city {
-      font-size: 0.82rem;
-      color: var(--text-sub);
+      font-size: 0.8rem;
+      color: #6b7280;
       text-align: center;
     }
 
     .session-time {
-      margin-top: 4px;
       font-size: 0.88rem;
-      color: #0f172a;
+      color: #111827;
       text-align: center;
+      margin-top: 2px;
     }
 
     .status-pill {
@@ -138,7 +126,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      padding: 4px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
@@ -146,12 +134,12 @@
     }
 
     .status-pill.open {
-      background: rgba(22, 163, 74, 0.1);
+      background: rgba(22, 163, 74, 0.12);
       color: #16a34a;
     }
 
     .status-pill.closed {
-      background: rgba(148, 163, 184, 0.18);
+      background: rgba(148, 163, 184, 0.2);
       color: #64748b;
     }
 
@@ -169,44 +157,53 @@
       background: #64748b;
     }
 
-    /* ROUND CLOCK – WHITE WITH BLACK BORDER */
+    /* -------- CLOCK STYLE (white, black border, numbers) -------- */
 
     .clock-wrapper {
-      margin-top: 6px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-bottom: 4px;
       gap: 4px;
     }
 
     .clock {
-      width: 90px;
-      height: 90px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       background: radial-gradient(circle at 30% 30%, #f9fafb, #ffffff);
-      border: 3px solid #111827; /* black border */
+      border: 3px solid #000000;
       position: relative;
-      box-shadow: 0 12px 20px rgba(15, 23, 42, 0.25);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.35);
     }
 
-    /* small ticks at 12/3/6/9 */
-    .clock::before,
-    .clock::after {
-      content: "";
+    .clock-number {
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 80%;
-      height: 80%;
-      border-radius: 50%;
-      border: 1px dashed rgba(148, 163, 184, 0.6);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #000000;
     }
+
+    /* 12 / 3 / 6 / 9 */
+    .n12 { top: 4px; left: 50%; transform: translateX(-50%); }
+    .n3  { top: 50%; right: 4px; transform: translateY(-50%); }
+    .n6  { bottom: 4px; left: 50%; transform: translateX(-50%); }
+    .n9  { top: 50%; left: 4px; transform: translateY(-50%); }
+
+    /* Diagonals roughly placed */
+    .n1  { top: 12px; right: 26px; }
+    .n2  { top: 26px; right: 12px; }
+    .n4  { top: 50%; right: 22px; transform: translateY(-32px); }
+    .n5  { bottom: 26px; right: 12px; }
+    .n7  { bottom: 26px; left: 12px; }
+    .n8  { top: 50%; left: 22px; transform: translateY(32px); }
+    .n10 { top: 26px; left: 12px; }
+    .n11 { top: 12px; left: 26px; }
 
     .hand {
       position: absolute;
-      left: 50%;
       top: 50%;
+      left: 50%;
       transform-origin: 50% 100%;
       transform: translate(-50%, -100%) rotate(0deg);
       border-radius: 999px;
@@ -214,47 +211,46 @@
 
     .hand.hour {
       width: 4px;
-      height: 24px;
-      background: #111827; /* black */
+      height: 28px;
+      background: #000000; /* black */
     }
 
     .hand.min {
       width: 3px;
-      height: 32px;
-      background: #111827; /* black */
+      height: 38px;
+      background: #000000; /* black */
     }
 
     .hand.sec {
       width: 2px;
-      height: 35px;
+      height: 44px;
       background: #ef4444; /* red second hand */
     }
 
     .clock-centre {
       position: absolute;
-      width: 9px;
-      height: 9px;
+      width: 10px;
+      height: 10px;
       border-radius: 999px;
-      background: #111827;
+      background: #000000;
       border: 2px solid #ffffff;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.25);
+      box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.3);
     }
 
-    /* digital time text under clock */
-    .clock-time {
-      font-size: 0.8rem;
+    .digital-time {
+      font-size: 0.82rem;
       font-variant-numeric: tabular-nums;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       color: #111827;
     }
 
     .note {
       margin-top: 16px;
       font-size: 0.8rem;
-      color: var(--text-sub);
+      color: #6b7280;
       text-align: center;
       line-height: 1.4;
     }
@@ -264,15 +260,14 @@
   <div class="page">
     <h1>Live Forex Session Clock (IST)</h1>
     <p class="sub">
-      Real-time open / close status of major FX sessions based on Indian
-      Standard Time (IST).
+      Real-time open / close status of major forex sessions, based on Indian Standard Time (IST).
     </p>
 
-    <div class="ist-time-box">
-      <div class="dot"></div>
+    <div class="ist-box">
+      <div class="ist-dot"></div>
       <div>
-        <div class="ist-label">IST Time &amp; Day</div>
-        <div id="istClockText">-- : -- : --</div>
+        <div class="ist-label">Current IST Time</div>
+        <div id="istText">--:--:--</div>
       </div>
     </div>
 
@@ -281,12 +276,26 @@
       <div class="card" id="card-sydney">
         <div class="clock-wrapper">
           <div class="clock">
+            <!-- numbers 1–12 -->
+            <div class="clock-number n12">12</div>
+            <div class="clock-number n1">1</div>
+            <div class="clock-number n2">2</div>
+            <div class="clock-number n3">3</div>
+            <div class="clock-number n4">4</div>
+            <div class="clock-number n5">5</div>
+            <div class="clock-number n6">6</div>
+            <div class="clock-number n7">7</div>
+            <div class="clock-number n8">8</div>
+            <div class="clock-number n9">9</div>
+            <div class="clock-number n10">10</div>
+            <div class="clock-number n11">11</div>
+
             <div class="hand hour"></div>
             <div class="hand min"></div>
             <div class="hand sec"></div>
             <div class="clock-centre"></div>
           </div>
-          <div class="clock-time">--:--:--</div>
+          <div class="digital-time">--:--:--</div>
         </div>
         <div class="session-title">Sydney Session</div>
         <div class="session-city">Australia</div>
@@ -301,12 +310,25 @@
       <div class="card" id="card-tokyo">
         <div class="clock-wrapper">
           <div class="clock">
+            <div class="clock-number n12">12</div>
+            <div class="clock-number n1">1</div>
+            <div class="clock-number n2">2</div>
+            <div class="clock-number n3">3</div>
+            <div class="clock-number n4">4</div>
+            <div class="clock-number n5">5</div>
+            <div class="clock-number n6">6</div>
+            <div class="clock-number n7">7</div>
+            <div class="clock-number n8">8</div>
+            <div class="clock-number n9">9</div>
+            <div class="clock-number n10">10</div>
+            <div class="clock-number n11">11</div>
+
             <div class="hand hour"></div>
             <div class="hand min"></div>
             <div class="hand sec"></div>
             <div class="clock-centre"></div>
           </div>
-          <div class="clock-time">--:--:--</div>
+          <div class="digital-time">--:--:--</div>
         </div>
         <div class="session-title">Tokyo Session</div>
         <div class="session-city">Japan</div>
@@ -321,12 +343,25 @@
       <div class="card" id="card-london">
         <div class="clock-wrapper">
           <div class="clock">
+            <div class="clock-number n12">12</div>
+            <div class="clock-number n1">1</div>
+            <div class="clock-number n2">2</div>
+            <div class="clock-number n3">3</div>
+            <div class="clock-number n4">4</div>
+            <div class="clock-number n5">5</div>
+            <div class="clock-number n6">6</div>
+            <div class="clock-number n7">7</div>
+            <div class="clock-number n8">8</div>
+            <div class="clock-number n9">9</div>
+            <div class="clock-number n10">10</div>
+            <div class="clock-number n11">11</div>
+
             <div class="hand hour"></div>
             <div class="hand min"></div>
             <div class="hand sec"></div>
             <div class="clock-centre"></div>
           </div>
-          <div class="clock-time">--:--:--</div>
+          <div class="digital-time">--:--:--</div>
         </div>
         <div class="session-title">London Session</div>
         <div class="session-city">United Kingdom</div>
@@ -341,12 +376,25 @@
       <div class="card" id="card-ny">
         <div class="clock-wrapper">
           <div class="clock">
+            <div class="clock-number n12">12</div>
+            <div class="clock-number n1">1</div>
+            <div class="clock-number n2">2</div>
+            <div class="clock-number n3">3</div>
+            <div class="clock-number n4">4</div>
+            <div class="clock-number n5">5</div>
+            <div class="clock-number n6">6</div>
+            <div class="clock-number n7">7</div>
+            <div class="clock-number n8">8</div>
+            <div class="clock-number n9">9</div>
+            <div class="clock-number n10">10</div>
+            <div class="clock-number n11">11</div>
+
             <div class="hand hour"></div>
             <div class="hand min"></div>
             <div class="hand sec"></div>
             <div class="clock-centre"></div>
           </div>
-          <div class="clock-time">--:--:--</div>
+          <div class="digital-time">--:--:--</div>
         </div>
         <div class="session-title">New York Session</div>
         <div class="session-city">United States</div>
@@ -359,112 +407,88 @@
     </div>
 
     <p class="note">
-      Session hours are approximate retail forex hours in IST, Monday–Friday.
-      Weekends and major holidays may cause markets to be closed or thin.
+      Session hours are approximate retail forex hours in IST (Monday–Friday).
+      Weekends and major holidays can affect market hours.
     </p>
   </div>
 
   <script>
-    // Helper: convert hours/minutes to minutes since midnight
-    function hmToMinutes(h, m) {
+    // minutes helper
+    function hmToMin(h, m) {
       return h * 60 + m;
     }
 
-    // Define sessions in IST (local browser time assumed IST for you)
+    // sessions in IST
     const sessions = [
-      {
-        id: "sydney",
-        startMin: hmToMinutes(3, 30),
-        endMin: hmToMinutes(12, 30),
-      },
-      {
-        id: "tokyo",
-        startMin: hmToMinutes(5, 30),
-        endMin: hmToMinutes(14, 30),
-      },
-      {
-        id: "london",
-        startMin: hmToMinutes(13, 30),
-        endMin: hmToMinutes(22, 30),
-      },
-      {
-        id: "ny",
-        startMin: hmToMinutes(18, 30),
-        endMin: hmToMinutes(3, 30), // wraps to next day
-      },
+      { id: "sydney", start: hmToMin(3, 30), end: hmToMin(12, 30) },
+      { id: "tokyo",  start: hmToMin(5, 30), end: hmToMin(14, 30) },
+      { id: "london", start: hmToMin(13, 30), end: hmToMin(22, 30) },
+      { id: "ny",     start: hmToMin(18, 30), end: hmToMin(3, 30) } // wraps
     ];
 
-    function updateClock() {
+    function tick() {
       const now = new Date();
 
-      // --- live analog clock hands (same time for all four icons) ---
-      const sec = now.getSeconds();
-      const min = now.getMinutes();
-      const hrs = now.getHours();
+      const h = now.getHours();
+      const m = now.getMinutes();
+      const s = now.getSeconds();
 
-      const secDeg = sec * 6;
-      const minDeg = min * 6 + sec * 0.1;
-      const hrsDeg = ((hrs % 12) + min / 60) * 30;
+      // angles
+      const secDeg = s * 6;
+      const minDeg = m * 6 + s * 0.1;
+      const hourDeg = ((h % 12) + m / 60) * 30;
 
-      document.querySelectorAll(".clock").forEach((clock) => {
-        const hHand = clock.querySelector(".hand.hour");
-        const mHand = clock.querySelector(".hand.min");
-        const sHand = clock.querySelector(".hand.sec");
-
-        hHand.style.transform =
-          "translate(-50%, -100%) rotate(" + hrsDeg + "deg)";
-        mHand.style.transform =
-          "translate(-50%, -100%) rotate(" + minDeg + "deg)";
-        sHand.style.transform =
-          "translate(-50%, -100%) rotate(" + secDeg + "deg)";
+      // update all analog clocks
+      document.querySelectorAll(".clock").forEach(clock => {
+        clock.querySelector(".hand.hour").style.transform =
+          `translate(-50%, -100%) rotate(${hourDeg}deg)`;
+        clock.querySelector(".hand.min").style.transform =
+          `translate(-50%, -100%) rotate(${minDeg}deg)`;
+        clock.querySelector(".hand.sec").style.transform =
+          `translate(-50%, -100%) rotate(${secDeg}deg)`;
       });
 
-      // --- IST digital text ---
-      const optsTime = {
+      // IST time text (assuming viewer is in IST – perfect for you)
+      const tStr = now.toLocaleTimeString("en-IN", {
         hour: "2-digit",
         minute: "2-digit",
-        second: "2-digit",
-      };
-      const optsDay = { weekday: "short" };
-      const t = now.toLocaleTimeString("en-IN", optsTime);
-      const d = now.toLocaleDateString("en-IN", optsDay);
-      document.getElementById("istClockText").textContent = `${d} • ${t}`;
+        second: "2-digit"
+      });
+      const dStr = now.toLocaleDateString("en-IN", { weekday: "short" });
 
-      // digital time under each small clock
-      document.querySelectorAll(".clock-time").forEach((el) => {
-        el.textContent = t;
+      document.getElementById("istText").textContent = `${dStr} • ${tStr}`;
+      document.querySelectorAll(".digital-time").forEach(el => {
+        el.textContent = tStr;
       });
 
-      // --- session open/close based on IST ---
-      const minutesNow = hrs * 60 + min;
+      // session open / closed
+      const minutesNow = h * 60 + m;
 
-      sessions.forEach((s) => {
-        let isOpen;
-        if (s.startMin < s.endMin) {
-          // same-day session
-          isOpen = minutesNow >= s.startMin && minutesNow < s.endMin;
+      sessions.forEach(ses => {
+        let open;
+        if (ses.start < ses.end) {
+          open = minutesNow >= ses.start && minutesNow < ses.end;
         } else {
-          // overnight session (e.g. New York)
-          isOpen = minutesNow >= s.startMin || minutesNow < s.endMin;
+          // overnight
+          open = minutesNow >= ses.start || minutesNow < ses.end;
         }
 
-        const pill = document.getElementById("status-" + s.id);
-        const card = document.getElementById("card-" + s.id);
+        const card = document.getElementById("card-" + ses.id);
+        const pill = document.getElementById("status-" + ses.id);
+        if (!card || !pill) return;
 
-        if (!pill || !card) return;
+        card.classList.toggle("open", open);
+        card.classList.toggle("closed", !open);
+        pill.classList.toggle("open", open);
+        pill.classList.toggle("closed", !open);
 
-        pill.classList.toggle("open", isOpen);
-        pill.classList.toggle("closed", !isOpen);
-        card.classList.toggle("open", isOpen);
-        card.classList.toggle("closed", !isOpen);
-
-        const textEl = pill.querySelector(".status-text");
-        textEl.textContent = isOpen ? "Session Open" : "Session Closed";
+        pill.querySelector(".status-text").textContent =
+          open ? "Session Open" : "Session Closed";
       });
     }
 
-    updateClock();
-    setInterval(updateClock, 1000);
+    tick();
+    setInterval(tick, 1000);
   </script>
 </body>
 </html>
